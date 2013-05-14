@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="css/core.css" type="text/css" rel="stylesheet" />
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div class="doc">
+            <div class="header-box">
+                <header class="title">集体活动分账计算器</header>
+                 <a class="js-flow-inputall w-link ani-blink">导入王亮的流水账</a>
+            </div>
+            <div class="centent-box">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>
+                                <div class="h-1">
+                                    参与者
+                                </div>
+                            </td>
+                            <td>
+                                <div class="h-1 js-person">
+                                </div>
+                            </td>
+                            <td>
+                                <button class="clm w-btn js-add-person" title="点击追加一个消费者">Add Person</button>
+                                <div style="display:none;">
+                                    <button class="clm w-btn btn-success js-person-sample" title="点击切换是否参与此次消费，绿色为参与">余果</button>
+                                    <label class="p-name clm js-balance-sample" title="正数表示需要收回的钱，负数表示需要给别人的钱">0</label>
+                                    <input type="text" class="clm-input js-flow-sample" value="0"/>
+                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="h-1">
+                                    收支（$NT）
+                                </div>
+                            </td>
+                            <td>
+                                <div class="h-1 js-balance">
+                                </div>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="4"><p class="sep"></p></td></tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="js-flow-wrap">
+                                    <div class="js-flow">
+                                    </div>
+                                    <textarea class="js-flow-desc flow-desc" placeholder="花钱干了什么？"></textarea>
+                                    <div>
+                                        <input type="datetime"  onclick="WdatePicker({left:0,top:0})" placeholder="什么时候？" class="js-flow-date"/>
+                                        <input type="text"  placeholder="在哪个地方？" class="js-flow-location"/>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="button-td">
+                                <button class="w-btn btn-primary js-add">calculate</button>
+                                <!-- <button class="js-add">up</button> -->
+                                <!-- <button class="js-add">down</button> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer-box">
+                <div class="w-output">
+                    <p>源代码</p>
+                    <textarea class="js-detail w-output-inner">{"candicates":["余果","姜松","金山","王亮"],"details":[{"id":"bf_1368264870345","users":[true,true,true,true],"outs":["387","0","0","0"],"date":"2013-04-29","location":"杭州","desc":"去杭州机场的黑车80人民币,汇率*4.8356","tips":"于 2013-04-29,在 杭州,余果,为 余果,姜松,金山,王亮,购买 去杭州机场的黑车80人民币,汇率*4.8356,支出了 387"},{"id":"bf_1368265007343","users":[true,true,true,true],"outs":["0","0","580","0"],"date":"2013-04-29","location":"台北","desc":"桃园机场到台北的bus","tips":"于 2013-04-29,在 台北,金山,为 余果,姜松,金山,王亮,购买 桃园机场到台北的bus,支出了 580"},{"id":"bf_1368265067164","users":[true,true,true,true],"outs":["0","0","0","200"],"date":"2013-04-29","location":"台北","desc":"walker'hotel的预付定金","tips":"于 2013-04-29,在 台北,王亮,为 余果,姜松,金山,王亮,购买 walker'hotel的预付定金,支出了 200"},{"id":"bf_1368265218520","users":[true,true,true,true],"outs":["1800","0","0","0"],"date":"2013-04-29","location":"台北","desc":"walker'hotel的柜台剩余房款","tips":"于 2013-04-29,在 台北,余果,为 余果,姜松,金山,王亮,购买 walker'hotel的柜台剩余房款,支出了 1800"},{"id":"bf_1368265371468","users":[true,true,true,true],"outs":["195","0","0","0"],"date":"2013-04-30","location":"台北","desc":"去民主西路租单车的的士","tips":"于 2013-04-30,在 台北,余果,为 余果,姜松,金山,王亮,购买 去民主西路租单车的的士,支出了 195"},{"id":"bf_1368265403349","users":[true,true,true,true],"outs":["90","0","0","0"],"date":"2013-04-30","location":"台北","desc":"打包单车的垃圾袋","tips":"于 2013-04-30,在 台北,余果,为 余果,姜松,金山,王亮,购买 打包单车的垃圾袋,支出了 90"},{"id":"bf_1368265478794","users":[true,true,true,true],"outs":["0","700","0","0"],"date":"2013-04-30","location":"瑞芳","desc":"瑞芳小镇里的晚餐","tips":"于 2013-04-30,在 瑞芳,姜松,为 余果,姜松,金山,王亮,购买 瑞芳小镇里的晚餐,支出了 700"},{"id":"bf_1368265519960","users":[true,true,true,true],"outs":["0","0","2100","0"],"date":"2013-04-30","location":"九份","desc":"九份民宿的房费","tips":"于 2013-04-30,在 九份,金山,为 余果,姜松,金山,王亮,购买 九份民宿的房费,支出了 2100"},{"id":"bf_1368265565912","users":[true,true,true,true],"outs":["0","0","0","155"],"date":"2013-05-01","location":"九份","desc":"骑车的雨衣和鞋子","tips":"于 2013-05-01,在 九份,王亮,为 余果,姜松,金山,王亮,购买 骑车的雨衣和鞋子,支出了 155"},{"id":"bf_1368265720628","users":[true,true,true,true],"outs":["0","280","0","0"],"date":"2013-05-01","location":"瑞芳","desc":"瑞芳去头城的车票","tips":"于 2013-05-01,在 瑞芳,姜松,为 余果,姜松,金山,王亮,购买 瑞芳去头城的车票,支出了 280"},{"id":"bf_1368265762147","users":[true,true,true,true],"outs":["0","0","0","100"],"date":"2013-05-01","location":"头城","desc":"头城车站买的水","tips":"于 2013-05-01,在 头城,王亮,为 余果,姜松,金山,王亮,购买 头城车站买的水,支出了 100"},{"id":"bf_1368265799545","users":[true,true,true,true],"outs":["250","0","0","0"],"date":"2013-05-01","location":"礁溪","desc":"礁溪的晚饭","tips":"于 2013-05-01,在 礁溪,余果,为 余果,姜松,金山,王亮,购买 礁溪的晚饭,支出了 250"},{"id":"bf_1368265818144","users":[true,true,true,true],"outs":["0","0","0","200"],"date":"2013-05-01","location":"礁溪","desc":"礁溪的葱油饼","tips":"于 2013-05-01,在 礁溪,王亮,为 余果,姜松,金山,王亮,购买 礁溪的葱油饼,支出了 200"},{"id":"bf_1368265867088","users":[true,true,true,true],"outs":["0","0","3000","0"],"date":"2013-05-01","location":"礁溪","desc":"官夫人旅店","tips":"于 2013-05-01,在 礁溪,金山,为 余果,姜松,金山,王亮,购买 官夫人旅店,支出了 3000"},{"id":"bf_1368266355388","users":[false,false,true,true],"outs":["0","0","40","0"],"date":"2013-05-01","location":"九份","desc":"阿甘姨芋圆","tips":"于 2013-05-01,在 九份,金山,为 金山,王亮,购买 阿甘姨芋圆,支出了 40"},{"id":"bf_1368267759245","users":[false,false,true,true],"outs":["0","0","95","0"],"date":"2013-05-02","location":"苏澳","desc":"苏澳到新城的自强号","tips":"于 2013-05-02,在 苏澳,金山,为 金山,王亮,购买 苏澳到新城的自强号,支出了 95"},{"id":"bf_1368267797437","users":[false,false,true,true],"outs":["0","0","0","1200"],"date":"2013-05-02","location":"花莲","desc":"海洋之心民宿","tips":"于 2013-05-02,在 花莲,王亮,为 金山,王亮,购买 海洋之心民宿,支出了 1200"},{"id":"bf_1368267840260","users":[false,false,true,true],"outs":["0","0","50","0"],"date":"2013-05-02","location":"花莲","desc":"自强夜市官财板","tips":"于 2013-05-02,在 花莲,金山,为 金山,王亮,购买 自强夜市官财板,支出了 50"},{"id":"bf_1368267908705","users":[false,false,true,true],"outs":["0","0","50","0"],"date":"2013-05-02","location":"花莲","desc":"自强夜市河阿煎50","tips":"于 2013-05-02,在 花莲,金山,为 金山,王亮,购买 自强夜市河阿煎50,支出了 50"},{"id":"bf_1368267945970","users":[false,false,true,true],"outs":["0","0","0","150"],"date":"2013-05-02","location":"花莲","desc":"自强夜市回民宿的的士","tips":"于 2013-05-02,在 花莲,王亮,为 金山,王亮,购买 自强夜市回民宿的的士,支出了 150"},{"id":"bf_1368267992631","users":[false,false,true,true],"outs":["0","0","798","0"],"date":"2013-05-03","location":"花莲","desc":"花莲到台东的火车票","tips":"于 2013-05-03,在 花莲,金山,为 金山,王亮,购买 花莲到台东的火车票,支出了 798"},{"id":"bf_1368268038613","users":[false,false,true,true],"outs":["0","0","0","1200"],"date":"2013-05-03","location":"台东","desc":"台东民宿","tips":"于 2013-05-03,在 台东,王亮,为 金山,王亮,购买 台东民宿,支出了 1200"},{"id":"bf_1368268089460","users":[false,false,true,true],"outs":["0","0","215","0"],"date":"2013-05-04","location":"台东","desc":"台东到枋寮区间车","tips":"于 2013-05-04,在 台东,金山,为 金山,王亮,购买 台东到枋寮区间车,支出了 215"},{"id":"bf_1368268223058","users":[false,false,true,true],"outs":["0","0","1000","0"],"date":"2013-05-04","location":"枋寮","desc":"单车托运回台北","tips":"于 2013-05-04,在 枋寮,金山,为 金山,王亮,购买 单车托运回台北,支出了 1000"},{"id":"bf_1368268270289","users":[false,false,true,true],"outs":["0","0","662","0"],"date":"2013-05-04","location":"枋寮","desc":"枋寮到垦丁的观光巴士","tips":"于 2013-05-04,在 枋寮,金山,为 金山,王亮,购买 枋寮到垦丁的观光巴士,支出了 662"},{"id":"bf_1368268298768","users":[false,false,true,true],"outs":["0","0","0","1200"],"date":"2013-05-04","location":"枋寮","desc":"垦丁民宿","tips":"于 2013-05-04,在 枋寮,王亮,为 金山,王亮,购买 垦丁民宿,支出了 1200"},{"id":"bf_1368268317031","users":[false,false,true,true],"outs":["0","0","0","1000"],"date":"2013-05-04","location":"枋寮","desc":"垦丁民宿的预付款","tips":"于 2013-05-04,在 枋寮,王亮,为 金山,王亮,购买 垦丁民宿的预付款,支出了 1000"},{"id":"bf_1368268359918","users":[false,false,true,true],"outs":["0","0","0","800"],"date":"2013-05-05","location":"垦丁","desc":"垦丁的电动车租赁","tips":"于 2013-05-05,在 垦丁,王亮,为 金山,王亮,购买 垦丁的电动车租赁,支出了 800"},{"id":"bf_1368268395254","users":[false,false,true,true],"outs":["0","0","1200","0"],"date":"2013-05-05","location":"垦丁","desc":"垦丁水上三项","tips":"于 2013-05-05,在 垦丁,金山,为 金山,王亮,购买 垦丁水上三项,支出了 1200"},{"id":"bf_1368268427213","users":[false,false,true,true],"outs":["0","0","950","0"],"date":"2013-05-05","location":"垦丁","desc":"午夜渔港晚餐","tips":"于 2013-05-05,在 垦丁,金山,为 金山,王亮,购买 午夜渔港晚餐,支出了 950"},{"id":"bf_1368268457604","users":[false,false,true,true],"outs":["0","0","100","0"],"date":"2013-05-05","location":"垦丁","desc":"鹅銮鼻公园门票","tips":"于 2013-05-05,在 垦丁,金山,为 金山,王亮,购买 鹅銮鼻公园门票,支出了 100"},{"id":"bf_1368268492796","users":[false,false,true,true],"outs":["0","0","20","0"],"date":"2013-05-05","location":"垦丁","desc":"最南点停车票","tips":"于 2013-05-05,在 垦丁,金山,为 金山,王亮,购买 最南点停车票,支出了 20"},{"id":"bf_1368268528378","users":[false,false,true,true],"outs":["0","0","400","0"],"date":"2013-05-05","location":"垦丁","desc":"垦丁高雄的补票","tips":"于 2013-05-05,在 垦丁,金山,为 金山,王亮,购买 垦丁高雄的补票,支出了 400"},{"id":"bf_1368268580129","users":[false,false,true,true],"outs":["0","0","2980","0"],"date":"2013-05-06","location":"高雄","desc":"高雄到台北的高铁","tips":"于 2013-05-06,在 高雄,金山,为 金山,王亮,购买 高雄到台北的高铁,支出了 2980"},{"id":"bf_1368268618163","users":[true,true,true,true],"outs":["0","0","2100","0"],"date":"2013-05-06","location":"台北","desc":"全家欢旅舍","tips":"于 2013-05-06,在 台北,金山,为 余果,姜松,金山,王亮,购买 全家欢旅舍,支出了 2100"},{"id":"bf_1368268685422","users":[false,false,true,true],"outs":["0","0","75","0"],"date":"2013-05-06","location":"台北","desc":"去佳德买蛋黄酥的的士","tips":"于 2013-05-06,在 台北,金山,为 金山,王亮,购买 去佳德买蛋黄酥的的士,支出了 75"},{"id":"bf_1368268721520","users":[false,false,true,true],"outs":["0","0","0","85"],"date":"2013-05-07","location":"台北","desc":"去天仁名茶的的士","tips":"于 2013-05-07,在 台北,王亮,为 金山,王亮,购买 去天仁名茶的的士,支出了 85"},{"id":"bf_1368268755966","users":[false,false,true,true],"outs":["0","0","0","85"],"date":"2013-05-07","location":"台北","desc":"还租的自行车之后到旅店的的士","tips":"于 2013-05-07,在 台北,王亮,为 金山,王亮,购买 还租的自行车之后到旅店的的士,支出了 85"},{"id":"bf_1368268812827","users":[false,false,true,true],"outs":["0","0","50","0"],"date":"2013-05-07","location":"台北","desc":"佳德的蛋挞","tips":"于 2013-05-07,在 台北,金山,为 金山,王亮,购买 佳德的蛋挞,支出了 50"},{"id":"bf_1368268927888","users":[false,false,true,true],"outs":["0","0","411","0"],"date":"2013-05-07","location":"杭州","desc":"去杭州机场的回家的的士85人民币,汇率*4.8356\n\t","tips":"于 2013-05-07,在 杭州,金山,为 金山,王亮,购买 去杭州机场的回家的的士85人民币,汇率*4.8356\n\t,支出了 411"}]}</textarea>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/vendor/My97DatePicker/WdatePicker.js"></script>
+        <script src="js/vendor/jquery-1.9.1.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+      <!-- <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src='//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script> -->
+    </body>
+</html>
