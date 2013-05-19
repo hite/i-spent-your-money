@@ -99,40 +99,56 @@
                 // var flowEles = $(".js-flow").children();
                 // 导入数据
                 $(".js-flow-inputall").click(function(){
-                    window.balance =  window.JSON.parse($(".js-detail").val());
-                    // 生成参与者
-                    $.each(window.balance.candicates,function(index,item){
-                        addPerson(item);
-                    });
-                    // 生成数据
-                    var details = window.balance.details;
-                    //
-                    var inputZone = $(".js-flow-wrap");
-                    $.each(details,function(index,bfObject){
-                        inputZone.after(createTip(bfObject));
-                        // 计算总值
-                        var total = 0;
-                        // 支出掏钱的人
-                        $(".js-flow").children().each(function(index,item){
-                            var val = parseInt(bfObject.outs[index]); 
-                            if(isNaN(val) || val==0) return;
-                            total += val;
-                            // 同时作为支出减去
-                            updateBalanceFunc($(".js-balance").children().eq(index),val);
-                        });
-                        //
-                        // 计算都有那些人参与了消费
-                        var users = bfObject.users;
-                        var spentTotal = 0;
-                        $.each(users,function(index,item){
-                            if(item) spentTotal++;
-                        });
-                        var splitTotal = total/spentTotal;
-                        $.each(users,function(index,item){
-                            if(item){
-                                updateBalanceFunc($(".js-balance").children().eq(index),-1*splitTotal);
+                    var aid = 1368979711;
+                    var params = window.location.search.replace("?","").split("=");
+                    for(var i=0;i<params.length;i=i+2){
+                        if(params[i]=="activeid"){
+                            aid = params[i+1];
+                            break;
+                        }
+                    }
+                    $.ajax("ajax/search.php",{
+                        data:{activeid:aid},
+                        success:function(_res){
+                            if(_res.code == "S_OK"){
+                                window.balance =  _res.data;
+                                // 生成参与者
+                                $.each(window.balance.candicates,function(index,item){
+                                    addPerson(item);
+                                });
+                                // 生成数据
+                                var details = window.balance.details;
+                                //
+                                var inputZone = $(".js-flow-wrap");
+                                $.each(details,function(index,bfObject){
+                                    inputZone.after(createTip(bfObject));
+                                    // 计算总值
+                                    var total = 0;
+                                    // 支出掏钱的人
+                                    var outs = bfObject.outs;
+                                    $.each(outs,function(index,item){
+                                        var val = parseInt(item); 
+                                        if(isNaN(val) || val==0) return;
+                                        total += val;
+                                        // 同时作为支出减去
+                                        updateBalanceFunc($(".js-balance").children().eq(index),val);
+                                    });
+                                    //
+                                    // 计算都有那些人参与了消费
+                                    var users = bfObject.users;
+                                    var spentTotal = 0;
+                                    $.each(users,function(index,item){
+                                        if(item) spentTotal++;
+                                    });
+                                    var splitTotal = total/spentTotal;
+                                    $.each(users,function(index,item){
+                                        if(item){
+                                            updateBalanceFunc($(".js-balance").children().eq(index),-1*splitTotal);
+                                        }
+                                    }); 
+                                });
                             }
-                        }); 
+                        }
                     });
                 });
 
@@ -169,7 +185,7 @@
                     // 这次钱的受益者
                     bfObject.users = [];
                     $(".js-person").children().each(function(index,item){
-                        bfObject.users[index] = $(item).hasClass("btn-success");
+                        bfObject.users[index] = $(item).hasClass("btn-success")?1:0;
                     });
                     // 这次出钱的人
                     bfObject.outs = [];
@@ -203,4 +219,15 @@
 
                     addPerson(userName);
                 });
+                // 持久化
+                $(".js-save").click(function(){
+                    $.ajax("ajax/save.php",{
+                        data:{a:1,b:3,name:"王亮",codesource:$(".js-detail").val()},
+                        method:"post",
+                        success:function(_data){
+                            alert("请copy下url："+window.location.href.split("?")[0]+"?activeid="+_data["activeid"]);
+                        }
+                    })
+                });
+
             };
