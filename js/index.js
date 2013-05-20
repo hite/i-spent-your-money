@@ -20,7 +20,7 @@
                 }
                 //
                 if(_bfObject.location){
-                    tips += "在<label class='t-flow-location'>"+_bfObject.location+"</label>,";
+                    tips += "在<label contenteditable ='true' class='t-flow-location'>"+_bfObject.location+"</label>,";
                 }
 
                 tips +="<label class='t-flow-outer'>";
@@ -46,9 +46,9 @@
                 tips += "</label>,";
                 
                 if(_bfObject.desc){
-                    tips += "购买<label class='t-flow-desc'>"+_bfObject.desc+"</label>,";
+                    tips += "购买<label contenteditable ='true' class='t-flow-desc'>"+_bfObject.desc+"</label>,";
                 }
-                tips += "支出了<label class='t-flow-total'>"+total+"</label>";
+                tips += "支出了<label contenteditable ='true' class='t-flow-total'>"+total+"</label>";
                 //
                 var l = $("<div>");
                 l.attr("id",_bfObject.id);
@@ -99,7 +99,11 @@
                 // var flowEles = $(".js-flow").children();
                 // 导入数据
                 $(".js-flow-inputall").click(function(){
-                    var aid = 1368979711;
+                    if(window.location.href.indexOf("hite.me")>-1){
+                        var aid = 1369062304;
+                    }else{
+                        var aid = 1368979711;
+                    }
                     var params = window.location.search.replace("?","").split("=");
                     for(var i=0;i<params.length;i=i+2){
                         if(params[i]=="activeid"){
@@ -222,7 +226,10 @@
                 // 持久化
                 $(".js-save").click(function(){
                     $.ajax("ajax/save.php",{
-                        data:{a:1,b:3,name:"王亮",codesource:$(".js-detail").val()},
+                        data:{
+                            codesource:$(".js-detail").val(),
+                            contentType : "application/x-www-form-urlencoded; charset=utf-8"
+                        },
                         method:"post",
                         success:function(_data){
                             alert("请copy下url："+window.location.href.split("?")[0]+"?activeid="+_data["activeid"]);

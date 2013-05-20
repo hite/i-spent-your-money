@@ -1,8 +1,10 @@
 
 <?php
 	header('Content-type: text/json');
+	// $con=mysql_connect("mysql12.000webhost.com","a5890661_isun","qa1234") or die (mysql_error());
 	$con=mysql_connect("localhost","root","admin") or die (mysql_error());
 	if(!$con) echo "Failed!";
+	// mysql_select_db("a5890661_ispent", $con);
 	mysql_select_db("ispent", $con);
 
 	//mysql_query("INSERT INTO user (id,name, alipay)VALUES (3,'Griffin', '35@173.com')");
@@ -13,9 +15,9 @@
 	$activeid = $currentTime;
 	mysql_query("INSERT INTO balance (activeid)VALUES ($currentTime)");
 	// 新建此次活动的参与者，
-	$parsed = json_decode($_POST["codesource"],true);
+	$codeSource2 = stripslashes($_POST["codesource"]);
+	$parsed = json_decode($codeSource2,true);
 	$candicates = $parsed["candicates"];
-	// print_r($parsed["candicates"]);
 	foreach($candicates as $key=>$candit) {
 		mysql_query("INSERT INTO user(activeid,name,seq)VALUES ($activeid,'$candit',$key)");
 		//

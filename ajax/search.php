@@ -6,8 +6,10 @@
 		echo json_encode($json = array("code" =>"S_ERROR","error_code" => "activeid not existed"));
 	}else{
 
+		// $con=mysql_connect("mysql12.000webhost.com","a5890661_isun","qa1234") or die (mysql_error());
 		$con=mysql_connect("localhost","root","admin") or die (mysql_error());
 		if(!$con) echo "Failed!";
+		// mysql_select_db("a5890661_ispent", $con);
 		mysql_select_db("ispent", $con);
 		// 查询参与人员；
 		$candicates = array();
