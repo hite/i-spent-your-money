@@ -2,7 +2,35 @@
                 candicates:[],
                 details:[]
             };
-            function syncData(){
+            function syncData(_type,_data){
+                // 同步帐单的输出
+                if(_type=="d" || _type == "a"){
+                    var cominator = _type=="d"?-1:1;
+                    var balances = $(".js-balance").children();
+                    var total = 0;
+                    $.each(balances,function(index,balance){
+                        var out = _data.outs[index];
+                        if(out>0){
+                            // 同时作为支出减去
+                            updateBalanceFunc(balance,cominator*out);
+                        }
+                        total = total+out;
+                    });
+                    // 
+                    var totalPerson = 0;
+                    $.each(_data.users,function(index,user){
+                        if(user>0){
+                            totalPerson ++;
+                        }
+                    });
+                    // 
+                    $.each(_data.users,function(index,user){
+                        if(user>0){
+                            updateBalanceFunc(balances.eq(index),-1*cominator*total/totalPerson);
+                        }
+                    });
+                }
+                // 排序
                 window.balance.details.sort(function(a,b){
                     return new Date(a.date).getTime()-new Date(b.date).getTime();
                 });
@@ -12,18 +40,23 @@
                 var db = window.localStorage;
                 db.setItem("output",strJson);
             };
+            function  updateBalanceFunc(_ele,_value){
+                var ele = $(_ele);
+                var oldVal = parseInt(ele.text());
+                ele.text(oldVal+_value);
+            };
             function createTip(_bfObject){
                  // 具体的提示
                 var tips = "";
                 if(_bfObject.date){
-                    tips += "于<label class='t-flow-date'>"+_bfObject.date+"</label>,";
+                    tips += "于<label class='f-instant-edit t-flow-date'>"+_bfObject.date+"</label>,";
                 }
                 //
                 if(_bfObject.location){
-                    tips += "在<label contenteditable ='true' class='t-flow-location'>"+_bfObject.location+"</label>,";
+                    tips += "在<label contenteditable ='true' class='f-instant-edit t-flow-location'>"+_bfObject.location+"</label>,";
                 }
 
-                tips +="<label class='t-flow-outer'>";
+                tips +="<label class='f-instant-edit t-flow-outer'>";
                 var tmp= [];
                 var total = 0;
                 $.each(_bfObject.outs,function(index,item){
@@ -35,7 +68,7 @@
                 tips += tmp.join("、");
                 tips +="</label>";
 
-                tips += "为<label class='t-flow-user'>";
+                tips += "为<label class='f-instant-edit t-flow-user'>";
                 var tmp= [];
                 $.each(_bfObject.users,function(index,item){
                     if(item){
@@ -46,9 +79,9 @@
                 tips += "</label>,";
                 
                 if(_bfObject.desc){
-                    tips += "购买<label contenteditable ='true' class='t-flow-desc'>"+_bfObject.desc+"</label>,";
+                    tips += "购买<label contenteditable ='true' class='f-instant-edit t-flow-desc'>"+_bfObject.desc+"</label>,";
                 }
-                tips += "支出了<label contenteditable ='true' class='t-flow-total'>"+total+"</label>";
+                tips += "支出了<label contenteditable ='true' class='f-instant-edit t-flow-total'>"+total+"</label>";
                 //
                 var l = $("<div>");
                 l.attr("id",_bfObject.id);
@@ -64,7 +97,7 @@
                         }
                     });
                     // 同步数据和源码的显示
-                    syncData();
+                    syncData("d",_bfObject);
                 });
                 //
                 return l;
@@ -92,6 +125,29 @@
                 //
                 $(".js-person").delegate("button","click",function(event){
                         $(this).toggleClass("btn-success");
+                        return true;
+                });
+                //
+
+                $(document.body).delegate(".f-instant-edit","click",function(event){
+                        var site = $(this);
+                        var id = site.parent().attr("id");
+                        var older = null;
+                        $.each(window.balance.details,function(index,detail){
+                            if(detail.id==id){
+                                older = detail;
+                                return false;
+                            }
+                        });
+
+                        if(site.hasClass("t-flow-location")){
+                            var newVal = window.prompt("输入新值");
+                            older.location = newVal;
+                            site.parent().find(".t-flow-location").text(newVal);
+                        }else if(site.hasClass("t-flow-desc")){
+                            older.desc = window.prompt("输入新值");
+                            site.parent().find(".t-flow-desc").text(older.desc);
+                        }
                         return true;
                 });
                 //
@@ -127,39 +183,13 @@
                                 $.each(details,function(index,bfObject){
                                     inputZone.after(createTip(bfObject));
                                     // 计算总值
-                                    var total = 0;
-                                    // 支出掏钱的人
-                                    var outs = bfObject.outs;
-                                    $.each(outs,function(index,item){
-                                        var val = parseInt(item); 
-                                        if(isNaN(val) || val==0) return;
-                                        total += val;
-                                        // 同时作为支出减去
-                                        updateBalanceFunc($(".js-balance").children().eq(index),val);
-                                    });
-                                    //
-                                    // 计算都有那些人参与了消费
-                                    var users = bfObject.users;
-                                    var spentTotal = 0;
-                                    $.each(users,function(index,item){
-                                        if(item) spentTotal++;
-                                    });
-                                    var splitTotal = total/spentTotal;
-                                    $.each(users,function(index,item){
-                                        if(item){
-                                            updateBalanceFunc($(".js-balance").children().eq(index),-1*splitTotal);
-                                        }
-                                    }); 
+                                    syncData("a",bfObject);
                                 });
                             }
                         }
                     });
                 });
 
-                var updateBalanceFunc = function(_ele,_value){
-                    var oldVal = parseInt(_ele.text());
-                        _ele.text(oldVal+_value);
-                };
                 //
                 var sample = $(".js-flow-wrap");
                 // 点击计算按钮
@@ -170,19 +200,9 @@
                         var val = parseInt(item.value); 
                         if(isNaN(val)) return;
                         total += val;
-                        // 同时作为支出减去
-                        updateBalanceFunc($(".js-balance").children().eq(index),val);
                     });
                     //
                     if(total==0) return true;
-                    // 计算都有那些人参与了消费
-                    var candicates = $(".js-person").children().filter(".btn-success");
-                    var splitTotal = total/candicates.length;
-                    $(".js-person").children().each(function(index,item){
-                        if($(item).hasClass("btn-success")){
-                            updateBalanceFunc($(".js-balance").children().eq(index),-1*splitTotal);
-                        }
-                    });
                     
                     // 生成详细数据
                     var bfObject = {id:"bf_"+new Date().getTime()};
@@ -195,7 +215,7 @@
                     bfObject.outs = [];
                     // cloned.find(".js-flow-desc").val();http://bugs.jquery.com/ticket/3016
                     sample.find(".js-flow").children().each(function(index,item){
-                        bfObject.outs[index] = item.value;
+                        bfObject.outs[index] = parseInt(item.value);
                     });
                     
                     bfObject.date =  sample.find(".js-flow-date").val();
@@ -213,7 +233,7 @@
                     sample.after(createTip(bfObject));
                     //
                     // 同步数据和源码的显示
-                    syncData();
+                    syncData("a",bfObject);
 
                 });
                 // 点击增加人数
